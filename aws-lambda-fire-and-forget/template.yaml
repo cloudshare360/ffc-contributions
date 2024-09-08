@@ -7,10 +7,10 @@ Resources:
     Properties:
       Handler: firstLambda.handler
       Runtime: nodejs20.x
-      MemorySize: 128
-      Timeout: 5
+      MemorySize: 512
+      Timeout: 30
       Policies:
-        - AWSLambdaRole # This grants permission to invoke other Lambdas
+        - AWSLambdaFullAccess  # This grants permission to invoke other Lambdas
       Environment:
         Variables:
           SECOND_LAMBDA_ARN: !GetAtt SecondLambda.Arn
@@ -26,8 +26,8 @@ Resources:
     Properties:
       Handler: secondLambda.handler
       Runtime: nodejs20.x
-      MemorySize: 128
-      Timeout: 5
+      MemorySize: 512
+      Timeout: 30
     Events:
       ApiGatewaySecond:
         Type: Api

@@ -12,7 +12,7 @@ Resources:
         Variables:
           LAMBDA_2_NAME: !Ref Lambda2Function
       Policies:
-        - AWSLambdaBasicExecutionRole
+        - AWSLambdaFullAccess
         - Statement:
             Effect: Allow
             Action: lambda:InvokeFunction
@@ -25,7 +25,7 @@ Resources:
       Runtime: nodejs20.x
       CodeUri: lambda2/
       Policies:
-        - AWSLambdaBasicExecutionRole
+        - AWSLambdaFullAccess
 Outputs:
   Lambda1Function:
     Description: "Lambda 1 Function ARN"

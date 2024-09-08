@@ -17,6 +17,8 @@ This project demonstrates a fire-and-forget invocation between two AWS Lambda fu
 ## Deploying the Application
 1. Build the application:
     ```bash
+    sam clean
+    sam validate
     sam build
     ```
 
@@ -27,14 +29,45 @@ This project demonstrates a fire-and-forget invocation between two AWS Lambda fu
 
 3. During the guided deployment, provide a stack name and choose an AWS region.
 
-## Testing the Application Locally
-To invoke the first Lambda locally:
-```bash
-sam local invoke FirstLambda --event events/event.json
+Here are sample events you can use to test both the Lambdas.
+
+### 1. Sample Event for **First Lambda**
+This event simulates a request to the `FirstLambda`, which will asynchronously trigger the `SecondLambda`. Save this as `events/firstLambdaEvent.json`.
+
+```json
+{
+  "body": {
+    "message": "Trigger the second Lambda"
+  }
+}
 ```
 
-## Permissions
-The `FirstLambda` has permissions to invoke the `SecondLambda` as defined in the `template.yaml`.
+### 2. Sample Event for **Second Lambda**
+This event simulates a request to the `SecondLambda` directly. Save this as `events/secondLambdaEvent.json`.
 
-## License
-This project is licensed under the MIT License.
+```json
+{
+  "body": {
+    "message": "Hello from the Second Lambda"
+  }
+}
+```
+
+### How to Test Locally
+
+To invoke the Lambdas locally using AWS SAM with these sample events:
+
+1. **Test First Lambda** (which will invoke the second Lambda asynchronously):
+   ```bash
+   sam local invoke FirstLambda --event events/event.json
+   sam local invoke FirstLambda --event events/firstLambdaEvent.json
+   ```
+
+2. **Test Second Lambda** directly:
+   ```bash
+   sam local invoke SecondLambda --event events/secondLambdaEvent.json
+   ```
+
+This will trigger the respective Lambda functions with the appropriate event data.
+
+Let me know if you need further help!
