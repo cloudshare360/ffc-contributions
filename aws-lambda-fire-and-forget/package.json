@@ -1,0 +1,15 @@
+{
+  "name": "aws-lambda-fire-and-forget",
+  "version": "1.0.0",
+  "description": "## Overview This project demonstrates a fire-and-forget invocation between two AWS Lambda functions using the AWS Serverless Application Model (SAM). The first Lambda triggers the second Lambda without waiting for a response.",
+  "main": "firstLambda.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.1691.0"
+  }
+}

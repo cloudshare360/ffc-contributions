@@ -1,0 +1,38 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Resources:
+  FirstLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: firstLambda.handler
+      Runtime: nodejs20.x
+      MemorySize: 128
+      Timeout: 5
+      Policies:
+        - AWSLambdaRole # This grants permission to invoke other Lambdas
+      Environment:
+        Variables:
+          SECOND_LAMBDA_ARN: !GetAtt SecondLambda.Arn
+    Events:
+      ApiGateway:
+        Type: Api
+        Properties:
+          Path: /invoke-second-lambda
+          Method: post
+
+  SecondLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: secondLambda.handler
+      Runtime: nodejs20.x
+      MemorySize: 128
+      Timeout: 5
+
+Outputs:
+  FirstLambdaFunction:
+    Description: "First Lambda Function ARN"
+    Value: !GetAtt FirstLambda.Arn
+
+  SecondLambdaFunction:
+    Description: "Second Lambda Function ARN"
+    Value: !GetAtt SecondLambda.Arn
