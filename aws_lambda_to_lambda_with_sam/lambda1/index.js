@@ -2,12 +2,25 @@
 const AWS = require('aws-sdk');
 const lambda = new AWS.Lambda();
 
+/*
+
+{
+  "invocationType": "RequestResponse",
+  "functionName": "aws-sam-lambda-lambda-app-one-Lambda2Function-IqRL2Fx2gh6z"
+}
+
+*/
+
 exports.handler = async (event) => {
+    console.log("Start of Lambda 1")
+    console.log("Input Request", "event", JSON.stringify(event));
+    
     const invocationType = event.invocationType || 'RequestResponse'; // 'RequestResponse' for sync, 'Event' for async
+    const functionName = event.functionName;
     const params = {
-        FunctionName: 'Lambda2FunctionName', // Replace with actual Lambda 2 name
+        FunctionName: functionName, // Replace with actual Lambda 2 name
         InvocationType: invocationType, // 'RequestResponse' for sync, 'Event' for async
-        Payload: JSON.stringify({ key1: 'value1' }) // Add payload if necessary
+        Payload: JSON.stringify({ key1: 'Invoking from Lambda to Lambda' }) // Add payload if necessary
     };
 
     try {

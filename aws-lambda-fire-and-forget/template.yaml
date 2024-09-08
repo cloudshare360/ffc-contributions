@@ -1,5 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
+
 Resources:
   FirstLambda:
     Type: AWS::Serverless::Function
@@ -14,10 +15,10 @@ Resources:
         Variables:
           SECOND_LAMBDA_ARN: !GetAtt SecondLambda.Arn
     Events:
-      ApiGateway:
+      ApiGatewayFirst:
         Type: Api
         Properties:
-          Path: /invoke-second-lambda
+          Path: /invoke-first-lambda
           Method: post
 
   SecondLambda:
@@ -27,6 +28,12 @@ Resources:
       Runtime: nodejs20.x
       MemorySize: 128
       Timeout: 5
+    Events:
+      ApiGatewaySecond:
+        Type: Api
+        Properties:
+          Path: /invoke-second-lambda
+          Method: post
 
 Outputs:
   FirstLambdaFunction:
@@ -36,3 +43,11 @@ Outputs:
   SecondLambdaFunction:
     Description: "Second Lambda Function ARN"
     Value: !GetAtt SecondLambda.Arn
+
+  FirstLambdaApiUrl:
+    Description: "API Gateway URL for invoking the First Lambda"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/invoke-first-lambda"
+
+  SecondLambdaApiUrl:
+    Description: "API Gateway URL for invoking the Second Lambda"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/invoke-second-lambda"

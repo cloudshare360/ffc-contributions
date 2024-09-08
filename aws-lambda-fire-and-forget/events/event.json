@@ -1,0 +1,51 @@
+{
+    "resource": "/invoke-second-lambda",
+    "path": "/invoke-second-lambda",
+    "httpMethod": "POST",
+    "headers": {
+      "Content-Type": "application/json",
+      "X-Amzn-Trace-Id": "Root=1-abcdef12-1234567890abcdef12345678",
+      "User-Agent": "PostmanRuntime/7.26.8",
+      "Accept": "*/*",
+      "Host": "localhost:3000",
+      "Accept-Encoding": "gzip, deflate, br",
+      "Connection": "keep-alive"
+    },
+    "queryStringParameters": null,
+    "multiValueQueryStringParameters": null,
+    "pathParameters": null,
+    "stageVariables": null,
+    "requestContext": {
+      "resourceId": "123456",
+      "resourcePath": "/invoke-second-lambda",
+      "httpMethod": "POST",
+      "extendedRequestId": "request-id",
+      "requestTime": "08/Apr/2024:12:34:56 +0000",
+      "path": "/invoke-second-lambda",
+      "accountId": "123456789012",
+      "protocol": "HTTP/1.1",
+      "stage": "prod",
+      "domainPrefix": "localhost",
+      "requestTimeEpoch": 1617903696000,
+      "requestId": "cdef1234-5678-90ab-cdef-1234567890ab",
+      "identity": {
+        "cognitoIdentityPoolId": null,
+        "accountId": null,
+        "cognitoIdentityId": null,
+        "caller": null,
+        "sourceIp": "127.0.0.1",
+        "principalOrgId": null,
+        "accessKey": null,
+        "cognitoAuthenticationType": null,
+        "cognitoAuthenticationProvider": null,
+        "userArn": null,
+        "userAgent": "PostmanRuntime/7.26.8",
+        "user": null
+      },
+      "domainName": "localhost",
+      "apiId": "abcdef1234"
+    },
+    "body": "{\"key1\":\"value1\",\"key2\":\"value2\"}",
+    "isBase64Encoded": false
+  }
+  
