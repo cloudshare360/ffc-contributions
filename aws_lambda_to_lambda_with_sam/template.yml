@@ -5,11 +5,11 @@ Resources:
   Lambda1Function:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: index.handler
+      Handler: lambda1.handler
       Runtime: nodejs20.x
       MemorySize: 512
       Timeout: 30
-      CodeUri: lambda1/
+      CodeUri: .
       Environment:
         Variables:
           LAMBDA_2_NAME: !Ref Lambda2Function
@@ -23,11 +23,11 @@ Resources:
   Lambda2Function:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: index.handler
+      Handler: lambda2.handler
       Runtime: nodejs20.x
       MemorySize: 512
       Timeout: 30
-      CodeUri: lambda2/
+      CodeUri: .
       Policies:
         - AWSLambdaBasicExecutionRole
 Outputs:
