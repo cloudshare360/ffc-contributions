@@ -12,8 +12,10 @@ sam local invoke SecondLambda --event events/secondLambdaEvent.json
 ```
 
 ```
-* sam clean 
-* sam build
+sam clean
+```
+```
+sam build
 ```
 
 Before executing below command, created the s3bucket in aws console - in the region that you are working
