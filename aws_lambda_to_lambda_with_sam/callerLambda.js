@@ -1,14 +1,17 @@
 const AWS = require('aws-sdk');
 const lambda = new AWS.Lambda();
+const { v4: uuidv4 } = require('uuid');
+
 
 // Function to invoke BackgroundLambda with timeout
 function invokeBackgroundLambdaWithTimeout(params, timeoutDuration) {
   return new Promise((resolve, reject) => {
+    console.log("start of invokeBackgroundLambdaWithTimeout");
     const timer = setTimeout(() => {
       console.error(`Background Lambda invocation timed out after ${timeoutDuration}ms`);
       reject(new Error('Invocation timed out'));
     }, timeoutDuration);
-
+    console.log("Invoking  of lambda with params", "params", JSON.stringify(params));
     lambda.invoke(params).promise()
       .then((data) => {
         clearTimeout(timer); // Clear the timeout if successful
@@ -20,11 +23,15 @@ function invokeBackgroundLambdaWithTimeout(params, timeoutDuration) {
         console.error('Error invoking Background Lambda:', err);
         reject(err);
       });
+      console.log("end of invokeBackgroundLambdaWithTimeout");
   });
 }
 
 exports.handler = async (event) => {
   console.log('Caller Lambda started.');
+  const newUuid = uuidv4();
+  console.log("invocation id", newUuid);
+  event.invocationId = newUuid;
 
   // Define the parameters for invoking BackgroundLambda
   const params = {
