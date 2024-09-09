@@ -1,39 +1,28 @@
-
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
+
 Resources:
-  Lambda1Function:
+  # Caller Lambda
+  CallerLambda:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: lambda1.handler
+      Handler: callerLambda.handler
       Runtime: nodejs20.x
-      MemorySize: 512
+      MemorySize: 128
       Timeout: 30
-      CodeUri: .
       Environment:
         Variables:
-          LAMBDA_2_NAME: !Ref Lambda2Function
+          BACKGROUND_LAMBDA_ARN: !GetAtt BackgroundLambda.Arn
       Policies:
-        - AWSLambdaBasicExecutionRole
-        - Statement:
-            Effect: Allow
-            Action: lambda:InvokeFunction
-            Resource: !GetAtt Lambda2Function.Arn
+        # Use SAM's built-in policy template to allow invoking the second Lambda
+        - LambdaInvokePolicy:
+            FunctionName: !GetAtt BackgroundLambda.Arn
 
-  Lambda2Function:
+  # Background Lambda
+  BackgroundLambda:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: lambda2.handler
+      Handler: backgroundLambda.handler
       Runtime: nodejs20.x
-      MemorySize: 512
+      MemorySize: 128
       Timeout: 30
-      CodeUri: .
-      Policies:
-        - AWSLambdaBasicExecutionRole
-Outputs:
-  Lambda1Function:
-    Description: "Lambda 1 Function ARN"
-    Value: !GetAtt Lambda1Function.Arn
-  Lambda2Function:
-    Description: "Lambda 2 Function ARN"
-    Value: !GetAtt Lambda2Function.Arn
