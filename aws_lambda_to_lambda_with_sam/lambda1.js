@@ -24,20 +24,24 @@ exports.handler = async (event) => {
     };
 
     try {
-        if (invocationType === 'RequestResponse') {
-            // Synchronous invocation, wait for response
-            const response = await lambda.invoke(params).promise();
-            console.log('Lambda 2 response:', response);
-            return response;
-        } else {
+        // if (invocationType === 'RequestResponse') {
+        //     console.log("RequestResponse block")
+        //     console.log("Synchronous invocation, wait for response")
+        //     // Synchronous invocation, wait for response
+        //     const response = await lambda.invoke(params).promise();
+        //     console.log('Lambda 2 response:', response);
+        //     return response;
+        // } else {
             // Asynchronous invocation, return execution ID
+            console.log("else block")
+            console.log("Asynchronous invocation, return execution ID")
             const response = await lambda.invoke(params).promise();
-            console.log('Lambda 2 invoked asynchronously, execution ID:', response.ResponseMetadata.RequestId);
+            console.log('Lambda 2 invoked asynchronously, execution ID:', JSON.stringify(response));
             return {
                 statusCode: 202,
-                body: JSON.stringify({ executionId: response.ResponseMetadata.RequestId })
+                body: JSON.stringify(response)
             };
-        }
+        //}
     } catch (error) {
         console.error('Error invoking Lambda 2:', error);
         throw error;
