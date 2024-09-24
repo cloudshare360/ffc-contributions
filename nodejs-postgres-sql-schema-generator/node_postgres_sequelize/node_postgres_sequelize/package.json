@@ -1,0 +1,14 @@
+{
+  "name": "node-postgres-sequelize",
+  "version": "1.0.0",
+  "description": "Node.js application with PostgreSQL and Sequelize",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "sequelize": "^6.6.5",
+    "pg": "^8.7.1"
+  }
+}
